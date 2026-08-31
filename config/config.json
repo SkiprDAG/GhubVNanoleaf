@@ -1,0 +1,228 @@
+{
+  "revision": 297,
+  "mode": {
+    "active": "battery",
+    "battery": {
+      "show_critical_warning": true
+    },
+    "solid": {
+      "color": [
+        125,
+        42,
+        207
+      ],
+      "factor": 0.5,
+      "transition_time": 2
+    },
+    "ambient": {
+      "enabled": true,
+      "palette": [
+        [
+          20,
+          152,
+          179
+        ],
+        [
+          169,
+          35,
+          179
+        ],
+        [
+          182,
+          47,
+          101
+        ]
+      ],
+      "min_brightness_factor": 0.18,
+      "max_brightness_factor": 0.6,
+      "transition_time": 10,
+      "phase_offset_per_group": 0.0
+    },
+    "vortex": {
+      "enabled": true,
+      "palette": [
+        [
+          0,
+          225,
+          255
+        ],
+        [
+          213,
+          0,
+          255
+        ],
+        [
+          255,
+          0,
+          119
+        ]
+      ],
+      "speed_ms": 150,
+      "clockwise": true,
+      "trail_length": 3
+    },
+    "wave": {
+      "enabled": true,
+      "palette": [
+        [
+          0,
+          240,
+          255
+        ],
+        [
+          160,
+          32,
+          240
+        ],
+        [
+          255,
+          20,
+          147
+        ]
+      ],
+      "speed_ms": 200,
+      "direction": "left_to_right"
+    },
+    "pomodoro": {
+      "enabled": true,
+      "work_duration_min": 25,
+      "break_duration_min": 5,
+      "long_break_min": 15,
+      "cycles_before_long_break": 4,
+      "focus_color": [
+        255,
+        140,
+        0
+      ],
+      "break_color": [
+        0,
+        200,
+        255
+      ],
+      "state": "idle",
+      "elapsed_seconds": 0,
+      "current_cycle": 1
+    },
+    "circadian": {
+      "enabled": true,
+      "min_temp_k": 1200,
+      "max_temp_k": 6000,
+      "brightness_factor": 0.4,
+      "transition_time": 50
+    },
+    "audio": {
+      "enabled": true,
+      "preset": "3band_eq",
+      "sensitivity": 0.5,
+      "bass_color": [
+        147,
+        0,
+        255
+      ],
+      "mid_color": [
+        255,
+        0,
+        150
+      ],
+      "high_color": [
+        0,
+        255,
+        200
+      ],
+      "decay_speed": 0.85,
+      "min_brightness": 0.1
+    }
+  },
+  "logic": {
+    "transition_time": 2,
+    "white_channel": 0,
+    "brightness_scale": {
+      "enabled": true,
+      "min_factor": 0.08,
+      "max_factor": 0.6
+    },
+    "thresholds": {
+      "critical": 10
+    },
+    "effects": {
+      "charging_partial": {
+        "pulse_transition_time": 10,
+        "min_factor": 0.2,
+        "max_factor": 0.6
+      },
+      "charging_full": {
+        "pulse_transition_time": 10,
+        "min_factor": 0.2,
+        "max_factor": 0.6
+      },
+      "critical": {
+        "pulse_transition_time": 15,
+        "warning_color": [
+          255,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "mapping": {
+    "devices": [
+      {
+        "match": "PRO X 2",
+        "label": "headset",
+        "panel_ids": [
+          133,
+          13,
+          36,
+          132,
+          238,
+          105
+        ],
+        "base_color": [
+          213,
+          0,
+          255
+        ]
+      },
+      {
+        "match": "G915",
+        "label": "keyboard",
+        "panel_ids": [
+          53,
+          249,
+          15,
+          251,
+          252,
+          17
+        ],
+        "base_color": [
+          0,
+          225,
+          255
+        ]
+      },
+      {
+        "match": "G502",
+        "label": "mouse",
+        "panel_ids": [
+          14,
+          90,
+          16,
+          18,
+          66,
+          19
+        ],
+        "base_color": [
+          255,
+          0,
+          119
+        ]
+      }
+    ]
+  },
+  "agent": {
+    "enabled": true,
+    "pc_offline_action": "off",
+    "pc_offline_timeout_sec": 15.0
+  }
+}
