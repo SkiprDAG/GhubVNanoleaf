@@ -4,7 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-project_root = Path(__file__).resolve().parent
+project_root = Path(__file__).resolve().parent.parent
 frontend_dir = project_root / "frontend"
 
 npm_cmd = shutil.which("npm.cmd") or shutil.which("npm")

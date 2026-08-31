@@ -1,6 +1,6 @@
 @echo off
 title GhubVNanoleaf - Standalone All-In-One Mode
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 
 echo ========================================================
 echo Starting GhubVNanoleaf (Standalone Monolith Mode)...

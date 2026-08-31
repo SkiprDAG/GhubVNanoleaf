@@ -1,6 +1,6 @@
 @echo off
 title GhubVNanoleaf - Master Server 24/7
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 
 echo ========================================================
 echo Starting GhubVNanoleaf Master Server 24/7...

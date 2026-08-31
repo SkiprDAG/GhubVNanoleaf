@@ -1,6 +1,6 @@
 @echo off
 title GhubVNanoleaf Agent - Auto Startup Setup
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 
 echo ========================================================
 echo Installing GhubVNanoleaf Desktop Agent in Windows Startup...

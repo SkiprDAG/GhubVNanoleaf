@@ -91,7 +91,7 @@ HTTP_PORT=8000
 ```
 
 #### 3. Запуск приложения:
-Запустите двойным кликом по [`start_standalone.bat`](file:///d:/project/GhubVNanoleaf/start_standalone.bat) или командой:
+Запустите двойным кликом по [`scripts/start_standalone.bat`](file:///d:/project/GhubVNanoleaf/scripts/start_standalone.bat) или командой:
 ```powershell
 .\venv\Scripts\python.exe main.py
 ```
@@ -120,7 +120,7 @@ docker compose up -d --build
 ```powershell
 .\venv\Scripts\python.exe run_agent.py --server ws://<IP_СЕРВЕРА>:8000/api/agent/ws --install-startup
 ```
-*(Или запустите [`install_agent_startup.bat`](file:///d:/project/GhubVNanoleaf/install_agent_startup.bat))*
+*(Или запустите [`scripts/install_agent_startup.bat`](file:///d:/project/GhubVNanoleaf/scripts/install_agent_startup.bat))*
 
 Для удаления из автозагрузки:
 ```powershell
@@ -239,7 +239,7 @@ GhubVNanoleaf/
 
 ### Сборка фронтенда:
 ```powershell
-python build_frontend.py
+python scripts/build_frontend.py
 # или напрямую через npm:
 npm --prefix frontend run build
 ```

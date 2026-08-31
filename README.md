@@ -91,7 +91,7 @@ HTTP_PORT=8000
 ```
 
 #### 3. Launch application:
-Run via double-clicking [`start_standalone.bat`](file:///d:/project/GhubVNanoleaf/start_standalone.bat) or from PowerShell:
+Run via double-clicking [`scripts/start_standalone.bat`](file:///d:/project/GhubVNanoleaf/scripts/start_standalone.bat) or from PowerShell:
 ```powershell
 .\venv\Scripts\python.exe main.py
 ```
@@ -120,7 +120,7 @@ Register the agent to Windows Startup (runs silently in the background using `py
 ```powershell
 .\venv\Scripts\python.exe run_agent.py --server ws://<SERVER_IP>:8000/api/agent/ws --install-startup
 ```
-*(Or double-click [`install_agent_startup.bat`](file:///d:/project/GhubVNanoleaf/install_agent_startup.bat))*
+*(Or double-click [`scripts/install_agent_startup.bat`](file:///d:/project/GhubVNanoleaf/scripts/install_agent_startup.bat))*
 
 To unregister from Windows Startup:
 ```powershell
@@ -239,7 +239,7 @@ GhubVNanoleaf/
 
 ### Build Frontend:
 ```powershell
-python build_frontend.py
+python scripts/build_frontend.py
 # or directly via npm:
 npm --prefix frontend run build
 ```

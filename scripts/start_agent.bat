@@ -1,6 +1,6 @@
 @echo off
 title GhubVNanoleaf - Desktop Agent
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 
 echo ========================================================
 echo Starting GhubVNanoleaf Desktop Agent...
