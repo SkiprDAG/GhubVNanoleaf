@@ -10,6 +10,7 @@ services:
     ports:
       - "8000:8000"
       - "60222:60222/udp"
+      - "5353:5353/udp"
     environment:
       - NANOLEAF_IP=${NANOLEAF_IP:-192.168.1.100}
       - NANOLEAF_TOKEN=${NANOLEAF_TOKEN:-}

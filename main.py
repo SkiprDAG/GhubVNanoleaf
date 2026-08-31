@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 
 from config import ConfigManager
 from control import ApiService, app, init_api_service
+from control.mdns_broadcaster import MdnsBroadcaster
 from domain.models import BatteryInfo
 from ghub import GHubBatterySource, GHubManager
 from lighting import (
@@ -194,6 +195,13 @@ async def main() -> None:
         name="periodic-timer-loop",
     )
 
+    mdns_enabled = os.getenv("MDNS_ENABLED", "true").lower() in ("true", "1", "yes")
+    mdns_hostname = os.getenv("MDNS_HOSTNAME", "nanoleaf").strip() or "nanoleaf"
+    mdns_broadcaster = MdnsBroadcaster(hostname=mdns_hostname, port=http_port)
+
+    if mdns_enabled:
+        await mdns_broadcaster.start()
+
     logger.info("All tasks initialized successfully. Running...")
 
     try:
@@ -209,6 +217,9 @@ async def main() -> None:
         raise
 
     finally:
+        if mdns_enabled:
+            await mdns_broadcaster.stop()
+
         for task in (ghub_task, render_task, uvicorn_task, timer_task):
             task.cancel()
 

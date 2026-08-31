@@ -62,6 +62,8 @@ else:
         "http://127.0.0.1:8000",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://nanoleaf.local:8000",
+        "http://nanoleaf.local",
     ]
 
 app.add_middleware(

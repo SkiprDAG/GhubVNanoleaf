@@ -1,0 +1,19 @@
+{
+  "name": "GhubVNanoleaf Controller",
+  "short_name": "GhubVNanoleaf",
+  "description": "Logitech G HUB & Nanoleaf Real-Time Lighting Control Center",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#090a0f",
+  "theme_color": "#090a0f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

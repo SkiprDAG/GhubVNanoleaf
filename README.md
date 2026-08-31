@@ -91,8 +91,12 @@ Run via double-clicking [`start_standalone.bat`](file:///d:/project/GhubVNanolea
 .\venv\Scripts\python.exe main.py
 ```
 
-#### 4. Open Web Dashboard:
-Navigate in your browser to: **`http://localhost:8000`**
+#### 4. Open Control Center & Install PWA:
+* **On Desktop:** navigate to **`http://localhost:8000`** or **`http://nanoleaf.local:8000`**.
+* **On Mobile / Tablet:** open **`http://nanoleaf.local:8000`** while connected to your home Wi-Fi network.
+* **Install as App (PWA):**
+  * In Chrome / Edge / Safari, click **"Install App"** or **"Add to Home Screen"**.
+  * The dashboard will launch in its own standalone window without browser chrome as a dedicated smart lighting remote.
 
 ---
 
