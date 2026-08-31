@@ -11,8 +11,9 @@
 ![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-green.svg)
 ![React](https://img.shields.io/badge/react-18-cyan.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-teal.svg)
-![Pydantic](https://img.shields.io/badge/pydantic-v2.8-red.svg)
-![Tests](https://img.shields.io/badge/tests-85%20passed-brightgreen.svg)
+![PWA](https://img.shields.io/badge/PWA-installable-orange.svg)
+![mDNS](https://img.shields.io/badge/mDNS-nanoleaf.local-purple.svg)
+![Tests](https://img.shields.io/badge/tests-88%20passed-brightgreen.svg)
 ![Docker](https://img.shields.io/badge/docker-ready-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-purple.svg)
 
@@ -30,7 +31,7 @@
    - Точное динамическое отображение уровня заряда поддерживаемых Logitech G HUB беспроводных устройств.
    - Интеллектуальное секционирование панелей: если группе назначено 3 панели, 50% заряда плавно заполняет 1.5 панели.
    - Эффекты зарядки: пульсирующий индикатор при активном питании, полный пульс при 100%.
-   - **Critical Warning Alert**: тревожное пульсирующее мигание красным цветом при критически низком заряде (< 15%). При полном разряде (0%) панели устройства полностью гаснут, сигнализируя о севшем аккумуляторе.
+   - **Critical Warning Alert**: тревожное пульсирующее мигание красным цветом при критически низком заряде (настраиваемый порог, по умолчанию ≤ 10%). При полном разряде (0%) панели устройства полностью гаснут, сигнализируя о севшем аккумуляторе.
 
 2. **🌈 9 Режимов освещения (Lighting Modes):**
    - **Battery**: визуализация статуса периферии G HUB.
@@ -43,12 +44,16 @@
    - **Solid**: статичный заливающий цвет с регулятором яркости.
    - **Off**: плавное гашение панелей.
 
-3. **⚡ Гибридная архитектура 24/7 (Dual Mode):**
+3. **📱 PWA & Zero-Config mDNS (`nanoleaf.local`):**
+   - Установка веб-интерфейса как автономного нативного приложения в 1 клик на Windows, macOS, iOS и Android.
+   - Автоматическое анонсирование адреса **`http://nanoleaf.local:8000`** в домашней Wi-Fi сети для мгновенного доступа с любого телефона или планшета.
+
+4. **⚡ Гибридная архитектура 24/7 (Dual Mode):**
    - **Монолитный режим:** все компоненты работают на одном ПК в одном процессе.
    - **Гибридный режим 24/7:** запуск Master-сервера в Docker на Raspberry Pi / NAS / Home Server + легкий агент на ПК в автозагрузке Windows.
    - **Win32 Power Hooks:** при выключении или сне ПК свет автоматически плавно гаснет или переходит в биоритмический ночник.
 
-4. **✨ Интерактивный Setup Wizard:**
+5. **✨ Интерактивный Setup Wizard:**
    - Автоматический опрос геометрии и формы панелей Nanoleaf по Wi-Fi OpenAPI.
    - Интерактивная подсветка выбранной панели в браузере в реальном времени (Identify Panel).
    - Авто-обход по кругу (Cycle Auto-Walk) и валидация наложений групп.
@@ -164,6 +169,8 @@ docker compose up -d --build
 | `GHUB_TIMEOUT` | `5.0` | Таймаут подключения к G HUB |
 | `HTTP_HOST` | `127.0.0.1` | Хост для запуска веб-сервера FastAPI (`0.0.0.0` для Docker/LAN) |
 | `HTTP_PORT` | `8000` | HTTP-порт для веб-интерфейса и API |
+| `MDNS_ENABLED` | `true` | Включение локального mDNS домена `nanoleaf.local` |
+| `MDNS_HOSTNAME` | `nanoleaf` | Имя хоста для доступа в локальной сети (`http://<hostname>.local:8000`) |
 | `CONFIG_PATH` | `config/config.json` | Путь к файлу конфигурации приложения |
 | `CORS_ORIGINS` | `""` | Разрешенные CORS источники (`*` или через запятую) |
 | `MASTER_SERVER_URL` | `ws://127.0.0.1:8000/api/agent/ws` | Адрес Master-сервера для Desktop Agent |
@@ -180,17 +187,20 @@ GhubVNanoleaf/
 │   └── startup.py              # Менеджер автозагрузки Windows (pythonw.exe)
 ├── config/                     # Управление конфигурацией (Pydantic v2)
 │   ├── manager.py              # Потокобезопасный ConfigManager с атомарным save
-│   └── models.py               # Схемы всех 9 режимов, логики и маппинга
+│   ├── models.py               # Схемы всех 9 режимов, логики и маппинга
+│   └── config.example.json     # Чистый шаблон конфигурации по умолчанию
 ├── control/                    # FastAPI & WebSocket Control Layer
 │   ├── api.py                  # Маршрутизация REST API, WebSockets и SPA static
 │   ├── schemas.py              # Pydantic DTO для API
 │   ├── service.py              # ApiService рассылки broadcast-событий
 │   ├── agent_service.py        # Управление удаленными агентами и fallback-режимами
-│   └── setup_coordinator.py    # Координатор интерактивной настройки маппинга
+│   ├── setup_coordinator.py    # Координатор интерактивной настройки маппинга
+│   └── mdns_broadcaster.py     # Анонсирование http://nanoleaf.local:8000 через Zeroconf
 ├── domain/                     # Чистый доменный слой (Clean Architecture)
 │   ├── models.py               # Immutable BatteryInfo, PanelColor, RenderPlan
 │   └── ports.py                # Интерфейсы LightingOutputPort, BatterySourcePort
 ├── frontend/                   # Современный SPA интерфейс (React 18 + TS + Vite)
+│   ├── public/                 # PWA Manifest, Service Worker, vector icons
 │   ├── src/pages/              # Dashboard, Setup, Modes, Devices, Settings
 │   └── src/components/         # Интерактивный Canvas Visualizer, формы настроек
 ├── ghub/                       # Драйвер Logitech G HUB
@@ -203,7 +213,7 @@ GhubVNanoleaf/
 │   ├── registry.py             # ModeRegistry (паттерн Strategy)
 │   ├── service.py              # Оркестратор LightingService
 │   └── modes/                  # 9 изолированных стратегий режимов
-├── tests/                      # Набор из 85 модульных и интеграционных тестов
+├── tests/                      # Набор из 88 модульных и интеграционных тестов
 ├── Dockerfile                  # Multi-stage сборка (Node 20 -> Python 3.11-slim)
 ├── docker-compose.yml          # Развертывание 24/7 сервера
 ├── pyproject.toml              # Стандарт проекта (PEP 518/621), конфиг Ruff/Pyright/Pytest
@@ -220,7 +230,7 @@ GhubVNanoleaf/
 ```powershell
 .\venv\Scripts\python.exe -m unittest discover tests
 ```
-*Все 85 тестов выполняются за ~0.7 секунды благодаря in-memory мокам портов ввода/вывода.*
+*Все 88 тестов выполняются за ~0.7 секунды благодаря in-memory мокам портов ввода/вывода.*
 
 ### Проверка типов и линтинг:
 ```powershell

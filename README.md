@@ -11,8 +11,9 @@
 ![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-green.svg)
 ![React](https://img.shields.io/badge/react-18-cyan.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-teal.svg)
-![Pydantic](https://img.shields.io/badge/pydantic-v2.8-red.svg)
-![Tests](https://img.shields.io/badge/tests-85%20passed-brightgreen.svg)
+![PWA](https://img.shields.io/badge/PWA-installable-orange.svg)
+![mDNS](https://img.shields.io/badge/mDNS-nanoleaf.local-purple.svg)
+![Tests](https://img.shields.io/badge/tests-88%20passed-brightgreen.svg)
 ![Docker](https://img.shields.io/badge/docker-ready-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-purple.svg)
 
@@ -30,7 +31,7 @@
    - Precise dynamic battery level visualization for any wireless Logitech devices supported in Logitech G HUB (mice, keyboards, headsets, gamepads, etc.).
    - Intelligent panel sectioning: if a group is assigned 3 panels, a 50% charge smoothly fills 1.5 panels.
    - Charging effects: animated pulsing indicator during charging, full pulse when 100% reached.
-   - **Critical Warning Alert**: pulsing red warning alert on critical battery level (< 15%). When completely discharged (0%), all assigned panels turn completely off.
+   - **Critical Warning Alert**: pulsing red warning alert on critical battery level (configurable threshold, default ≤ 10%). When completely discharged (0%), all assigned panels turn completely off.
 
 2. **🌈 9 Versatile Lighting Modes:**
    - **Battery**: dynamic status visualization of G HUB peripherals.
@@ -43,12 +44,16 @@
    - **Solid**: uniform static solid fill with fine brightness control.
    - **Off**: smooth panel blackout.
 
-3. **⚡ 24/7 Hybrid Architecture (Dual Mode):**
+3. **📱 PWA & Zero-Config mDNS (`nanoleaf.local`):**
+   - Install the web controller as a borderless standalone app in 1 click on Windows, macOS, iOS, and Android.
+   - Automatic local network domain broadcasting (`http://nanoleaf.local:8000`) for seamless mobile access on Wi-Fi without knowing IP addresses.
+
+4. **⚡ 24/7 Hybrid Architecture (Dual Mode):**
    - **Standalone Monolith Mode:** all components run in a single process on one PC.
    - **24/7 Hybrid Mode:** run the Master Server in Docker on a 24/7 host (Raspberry Pi / NAS / Home Server) + lightweight Desktop Agent in Windows Startup.
    - **Win32 Power Hooks:** when PC sleeps or shuts down, lights automatically fade out or switch to night mode.
 
-4. **✨ Interactive Setup & Mapping Wizard:**
+5. **✨ Interactive Setup & Mapping Wizard:**
    - Automatic Nanoleaf panel layout geometry discovery via Wi-Fi OpenAPI.
    - Real-time interactive panel identification with single-click visual feedback.
    - Automatic circular panel walk (Cycle Auto-Walk) and conflict validation.
@@ -164,6 +169,8 @@ To unregister from Windows Startup:
 | `GHUB_TIMEOUT` | `5.0` | Connection timeout for G HUB WebSocket |
 | `HTTP_HOST` | `127.0.0.1` | Host for FastAPI server (`0.0.0.0` for Docker/LAN) |
 | `HTTP_PORT` | `8000` | HTTP port for Web UI and REST API |
+| `MDNS_ENABLED` | `true` | Enable local mDNS domain `nanoleaf.local` broadcast |
+| `MDNS_HOSTNAME` | `nanoleaf` | Local network hostname (`http://<hostname>.local:8000`) |
 | `CONFIG_PATH` | `config/config.json` | Path to persistent configuration JSON |
 | `CORS_ORIGINS` | `""` | Allowed CORS origins (`*` or comma-separated URLs) |
 | `MASTER_SERVER_URL` | `ws://127.0.0.1:8000/api/agent/ws` | Master Server URL for Desktop Agent |
@@ -180,17 +187,20 @@ GhubVNanoleaf/
 │   └── startup.py              # Windows Startup registry manager (pythonw.exe)
 ├── config/                     # Configuration Management (Pydantic v2)
 │   ├── manager.py              # Thread-safe ConfigManager with atomic disk write
-│   └── models.py               # Pydantic schemas for all 9 modes and device mappings
+│   ├── models.py               # Pydantic schemas for all 9 modes and device mappings
+│   └── config.example.json     # Clean baseline default configuration template
 ├── control/                    # FastAPI & WebSocket Control Layer
 │   ├── api.py                  # REST API routes, WebSocket endpoints and SPA static serving
 │   ├── schemas.py              # Pydantic DTOs for API payloads
 │   ├── service.py              # ApiService for real-time WebSocket event broadcast
 │   ├── agent_service.py        # Remote agent manager & PC offline fallback handler
-│   └── setup_coordinator.py    # Setup Wizard & interactive panel mapping coordinator
+│   ├── setup_coordinator.py    # Setup Wizard & interactive panel mapping coordinator
+│   └── mdns_broadcaster.py     # http://nanoleaf.local:8000 Zeroconf broadcaster
 ├── domain/                     # Pure Domain Layer (Clean Architecture)
 │   ├── models.py               # Immutable BatteryInfo, PanelColor, RenderPlan
 │   └── ports.py                # Abstract LightingOutputPort & BatterySourcePort protocols
 ├── frontend/                   # Modern Web SPA (React 18 + TypeScript + Vite + Tailwind)
+│   ├── public/                 # PWA Manifest, Service Worker, vector branding
 │   ├── src/pages/              # Dashboard, Setup, Modes, Devices, Settings
 │   └── src/components/         # Interactive Canvas Visualizer, dynamic forms
 ├── ghub/                       # Logitech G HUB Driver
@@ -203,7 +213,7 @@ GhubVNanoleaf/
 │   ├── registry.py             # ModeRegistry (Strategy Pattern)
 │   ├── service.py              # LightingService application orchestrator
 │   └── modes/                  # 9 isolated lighting mode strategies
-├── tests/                      # Suite of 85 unit and integration tests
+├── tests/                      # Suite of 88 unit and integration tests
 ├── Dockerfile                  # Multi-stage build (Node 20 -> Python 3.11-slim)
 ├── docker-compose.yml          # Containerized 24/7 server deployment
 ├── pyproject.toml              # Project packaging (PEP 518/621), Ruff/Pyright/Pytest config
@@ -220,7 +230,7 @@ GhubVNanoleaf/
 ```powershell
 .\venv\Scripts\python.exe -m unittest discover tests
 ```
-*All 85 tests complete in ~0.7 seconds with in-memory port mocks.*
+*All 88 tests complete in ~0.7 seconds with in-memory port mocks.*
 
 ### Code Style & Type Checking:
 ```powershell
