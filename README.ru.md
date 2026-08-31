@@ -61,7 +61,7 @@
 
 #### 1. Клонирование и установка зависимостей:
 ```powershell
-git clone https://github.com/your-username/GhubVNanoleaf.git
+git clone https://github.com/SkiprDAG/GhubVNanoleaf.git
 cd GhubVNanoleaf
 python -m venv venv
 .\venv\Scripts\activate
