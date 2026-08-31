@@ -61,7 +61,7 @@
 
 #### 1. Clone repository and set up virtual environment:
 ```powershell
-git clone https://github.com/your-username/GhubVNanoleaf.git
+git clone https://github.com/SkiprDAG/GhubVNanoleaf.git
 cd GhubVNanoleaf
 python -m venv venv
 .\venv\Scripts\activate
