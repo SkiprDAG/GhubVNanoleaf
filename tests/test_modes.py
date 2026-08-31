@@ -41,6 +41,45 @@ class TestModes(unittest.TestCase):
         self.assertEqual(len(plan.panel_colors), 3)
         self.assertEqual(plan.panel_colors[0].panel_id, 101)
 
+    def test_battery_mode_critical_threshold_behavior(self) -> None:
+        mode = BatteryMode()
+        cfg = make_test_config()
+        cfg.logic.thresholds.critical = 10
+
+        # Case 1: Battery at 15% (even if raw ghub critical flag is True) -> should be NORMAL static mode
+        battery_15 = (
+            BatteryInfo(
+                device_id="dev1",
+                name="PRO X 2 Headset",
+                percentage=15,
+                charging=False,
+                critical=True,  # Raw G HUB flag is True at 15%
+                fully_charged=False,
+            ),
+        )
+        plan_15 = mode.build_plan(RenderContext(batteries=battery_15, config=cfg))
+        self.assertIsNotNone(plan_15)
+        assert plan_15 is not None
+        self.assertEqual(plan_15.anim_type, "static")
+        self.assertFalse(plan_15.metadata["devices"]["dev1"]["critical"])
+
+        # Case 2: Battery at 10% -> must trigger CRITICAL animation plan
+        battery_10 = (
+            BatteryInfo(
+                device_id="dev1",
+                name="PRO X 2 Headset",
+                percentage=10,
+                charging=False,
+                critical=True,
+                fully_charged=False,
+            ),
+        )
+        plan_10 = mode.build_plan(RenderContext(batteries=battery_10, config=cfg))
+        self.assertIsNotNone(plan_10)
+        assert plan_10 is not None
+        self.assertEqual(plan_10.anim_type, "custom")
+        self.assertTrue(plan_10.metadata["devices"]["dev1"]["critical"])
+
     def test_solid_mode_plan(self) -> None:
         mode = SolidMode()
         cfg = make_test_config()

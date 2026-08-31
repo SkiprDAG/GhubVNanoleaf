@@ -129,6 +129,7 @@ class ApiService:
         )
 
     async def notify_battery_change(self, battery: BatteryInfo) -> None:
+        critical_threshold = self.config.get_config().logic.thresholds.critical
         await self.broadcast_event(
             "battery_updated",
             {
@@ -136,7 +137,7 @@ class ApiService:
                 "name": battery.name,
                 "percentage": battery.percentage,
                 "charging": battery.charging,
-                "critical": battery.critical,
+                "critical": battery.percentage <= critical_threshold,
             },
         )
 

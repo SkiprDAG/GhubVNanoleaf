@@ -65,6 +65,8 @@ class BatteryMode(LightingMode):
             battery = mapping.battery
             percentage = int(clamp(battery.percentage, 0, 100))
 
+            is_critical = (percentage <= critical_threshold) and context.config.mode.battery.show_critical_warning
+
             if battery.charging and (battery.fully_charged or percentage >= 100):
                 entries = build_charging_full_entries(
                     valid_panel_ids,
@@ -82,7 +84,7 @@ class BatteryMode(LightingMode):
                 )
                 needs_custom = True
 
-            elif battery.critical or percentage <= critical_threshold:
+            elif is_critical:
                 entries = build_critical_entries(
                     valid_panel_ids,
                     mapping.base_color,
@@ -132,7 +134,7 @@ class BatteryMode(LightingMode):
                 "name": m.battery.name,
                 "percentage": m.battery.percentage,
                 "charging": m.battery.charging,
-                "critical": m.battery.critical,
+                "critical": m.battery.percentage <= critical_threshold,
             }
             for m in mappings
         }

@@ -1,5 +1,5 @@
 {
-  "revision": 297,
+  "revision": 1,
   "mode": {
     "active": "battery",
     "battery": {
@@ -7,11 +7,11 @@
     },
     "solid": {
       "color": [
-        125,
-        42,
-        207
+        20,
+        80,
+        255
       ],
-      "factor": 0.5,
+      "factor": 1.0,
       "transition_time": 2
     },
     "ambient": {
@@ -19,24 +19,24 @@
       "palette": [
         [
           20,
-          152,
-          179
+          70,
+          180
         ],
         [
-          169,
           35,
-          179
+          80,
+          180
         ],
         [
-          182,
-          47,
-          101
+          20,
+          160,
+          180
         ]
       ],
       "min_brightness_factor": 0.18,
-      "max_brightness_factor": 0.6,
-      "transition_time": 10,
-      "phase_offset_per_group": 0.0
+      "max_brightness_factor": 0.75,
+      "transition_time": 80,
+      "phase_offset_per_group": 0.15
     },
     "vortex": {
       "enabled": true,
@@ -105,32 +105,32 @@
     },
     "circadian": {
       "enabled": true,
-      "min_temp_k": 1200,
-      "max_temp_k": 6000,
-      "brightness_factor": 0.4,
+      "min_temp_k": 1800,
+      "max_temp_k": 6500,
+      "brightness_factor": 0.7,
       "transition_time": 50
     },
     "audio": {
       "enabled": true,
       "preset": "3band_eq",
-      "sensitivity": 0.5,
+      "sensitivity": 1.0,
       "bass_color": [
-        147,
+        255,
         0,
-        255
+        80
       ],
       "mid_color": [
-        255,
         0,
-        150
+        220,
+        255
       ],
       "high_color": [
-        0,
         255,
-        200
+        230,
+        0
       ],
       "decay_speed": 0.85,
-      "min_brightness": 0.1
+      "min_brightness": 0.08
     }
   },
   "logic": {
@@ -139,21 +139,21 @@
     "brightness_scale": {
       "enabled": true,
       "min_factor": 0.08,
-      "max_factor": 0.6
+      "max_factor": 0.8
     },
     "thresholds": {
       "critical": 10
     },
     "effects": {
       "charging_partial": {
-        "pulse_transition_time": 10,
-        "min_factor": 0.2,
-        "max_factor": 0.6
+        "pulse_transition_time": 25,
+        "min_factor": 0.15,
+        "max_factor": 1.0
       },
       "charging_full": {
-        "pulse_transition_time": 10,
-        "min_factor": 0.2,
-        "max_factor": 0.6
+        "pulse_transition_time": 25,
+        "min_factor": 0.25,
+        "max_factor": 0.8
       },
       "critical": {
         "pulse_transition_time": 15,
@@ -166,59 +166,7 @@
     }
   },
   "mapping": {
-    "devices": [
-      {
-        "match": "PRO X 2",
-        "label": "headset",
-        "panel_ids": [
-          133,
-          13,
-          36,
-          132,
-          238,
-          105
-        ],
-        "base_color": [
-          213,
-          0,
-          255
-        ]
-      },
-      {
-        "match": "G915",
-        "label": "keyboard",
-        "panel_ids": [
-          53,
-          249,
-          15,
-          251,
-          252,
-          17
-        ],
-        "base_color": [
-          0,
-          225,
-          255
-        ]
-      },
-      {
-        "match": "G502",
-        "label": "mouse",
-        "panel_ids": [
-          14,
-          90,
-          16,
-          18,
-          66,
-          19
-        ],
-        "base_color": [
-          255,
-          0,
-          119
-        ]
-      }
-    ]
+    "devices": []
   },
   "agent": {
     "enabled": true,

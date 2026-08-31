@@ -130,7 +130,7 @@ class LightingService:
                     "name": b.name,
                     "percentage": b.percentage,
                     "charging": b.charging,
-                    "critical": b.critical,
+                    "critical": b.percentage <= app_config.logic.thresholds.critical,
                     "fully_charged": b.fully_charged,
                     "mileage": b.mileage,
                 }

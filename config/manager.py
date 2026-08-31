@@ -27,8 +27,14 @@ class ConfigManager:
 
         if self._config_path is not None and self._config_path.exists():
             self._load_from_file(self._config_path)
-        else:
-            if self._config_path is not None:
+        elif self._config_path is not None:
+            # Check for example template file / Проверка наличия шаблонного файла примера
+            example_path = self._config_path.with_name(f"{self._config_path.stem}.example.json")
+            if example_path.exists():
+                logger.info("Config file %s not found, initializing from template %s", self._config_path, example_path)
+                self._load_from_file(example_path)
+                self.save()
+            else:
                 logger.info("Config file %s not found, using default AppConfig", self._config_path)
 
     def _load_from_file(self, path: Path) -> None:

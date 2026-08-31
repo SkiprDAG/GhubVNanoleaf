@@ -54,7 +54,9 @@ class MappingSetupCoordinator:
         Возвращает список обнаруженных G HUB устройств, обогащённый статусом маппинга.
         """
         raw_devices = self.source.get_devices_snapshot()
-        configured_mappings = self.config.get_config().mapping.devices
+        cfg = self.config.get_config()
+        configured_mappings = cfg.mapping.devices
+        critical_threshold = cfg.logic.thresholds.critical
 
         result: list[dict[str, Any]] = []
 
@@ -66,10 +68,11 @@ class MappingSetupCoordinator:
             battery_obj = dev.get("battery")
             battery_dict: dict[str, Any] | None = None
             if battery_obj is not None:
+                pct = getattr(battery_obj, "percentage", 0)
                 battery_dict = {
-                    "percentage": getattr(battery_obj, "percentage", 0),
+                    "percentage": pct,
                     "charging": getattr(battery_obj, "charging", False),
-                    "critical": getattr(battery_obj, "critical", False),
+                    "critical": pct <= critical_threshold,
                     "fully_charged": getattr(battery_obj, "fully_charged", False),
                 }
 
