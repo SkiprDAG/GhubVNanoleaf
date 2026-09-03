@@ -19,6 +19,17 @@
 
 **Autonomous battery visualization system for Logitech G HUB peripherals and smart lighting controller for Nanoleaf panels (Canvas, Shapes, Lines, Light Panels).**
 
+<br />
+
+<p align="center">
+  <img src="docs/screenshots/dashboard_preview.png" alt="GhubVNanoleaf Dashboard Preview" width="950" style="border-radius: 10px; max-width: 100%;" />
+</p>
+<p align="center">
+  <em>⚡ The entire web dashboard frontend (React 18 + TypeScript + Vite + Tailwind CSS + PWA) was completely designed and written using Artificial Intelligence (100% AI-generated).</em>
+</p>
+
+<br />
+
 [Features](#-key-features) • [Quick Start](#-quick-start) • [Lighting Modes](#-9-lighting-modes) • [Architecture](#-architecture--dual-mode) • [Configuration](#-environment-variables-env) • [Testing](#-testing--development)
 
 </div>
@@ -199,7 +210,7 @@ GhubVNanoleaf/
 ├── domain/                     # Pure Domain Layer (Clean Architecture)
 │   ├── models.py               # Immutable BatteryInfo, PanelColor, RenderPlan
 │   └── ports.py                # Abstract LightingOutputPort & BatterySourcePort protocols
-├── frontend/                   # Modern Web SPA (React 18 + TypeScript + Vite + Tailwind)
+├── frontend/                   # Modern Web SPA (React 18 + TS + Vite + Tailwind, 100% AI-generated)
 │   ├── public/                 # PWA Manifest, Service Worker, vector branding
 │   ├── src/pages/              # Dashboard, Setup, Modes, Devices, Settings
 │   └── src/components/         # Interactive Canvas Visualizer, dynamic forms

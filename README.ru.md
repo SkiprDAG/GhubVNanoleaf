@@ -19,6 +19,17 @@
 
 **Автономная система визуализации заряда периферии Logitech G HUB и умного освещения на настенных панелях Nanoleaf (Canvas, Shapes, Lines, Light Panels).**
 
+<br />
+
+<p align="center">
+  <img src="docs/screenshots/dashboard_preview.png" alt="GhubVNanoleaf Dashboard Preview" width="950" style="border-radius: 10px; max-width: 100%;" />
+</p>
+<p align="center">
+  <em>⚡ Весь веб-интерфейс панели управления (React 18 + TypeScript + Vite + Tailwind CSS + PWA) был полностью спроектирован и написан с использованием искусственного интеллекта (AI-generated).</em>
+</p>
+
+<br />
+
 [Возможности](#-ключевые-возможности) • [Быстрый старт](#-быстрый-старт) • [Режимы подсветки](#-9-режимов-подсветки) • [Архитектура](#-архитектура-и-режимы-работы) • [Конфигурация](#-переменные-окружения-env) • [Тестирование](#-тестирование-и-разработка)
 
 </div>
@@ -199,7 +210,7 @@ GhubVNanoleaf/
 ├── domain/                     # Чистый доменный слой (Clean Architecture)
 │   ├── models.py               # Immutable BatteryInfo, PanelColor, RenderPlan
 │   └── ports.py                # Интерфейсы LightingOutputPort, BatterySourcePort
-├── frontend/                   # Современный SPA интерфейс (React 18 + TS + Vite)
+├── frontend/                   # Современный SPA интерфейс (React 18 + TS + Vite, 100% AI-generated)
 │   ├── public/                 # PWA Manifest, Service Worker, vector icons
 │   ├── src/pages/              # Dashboard, Setup, Modes, Devices, Settings
 │   └── src/components/         # Интерактивный Canvas Visualizer, формы настроек
